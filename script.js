@@ -2,6 +2,15 @@
 //working api call format:
 //https://sheets.googleapis.com/v4/spreadsheets/1dJ0MP5z_5UG5bFfAKa17ksPRKKy9taVEet7W5-2ZRhY?key=AIzaSyBwr2UeuNOcdWJ8qB5HqHA6eE_i6iLTc74
 //https://console.cloud.google.com/home/dashboard?project=bill-bolton
+const table = document.getElementById("teamDisplay");
+
+const elBuilder = (el, values, append, id) => {
+    let create = document.createElement(el);
+    create.innerHTML = values;
+    create.id = id;
+    append.appendChild(create);
+};
+
 async function checkSheet() {
 
 const sheetId = `1dJ0MP5z_5UG5bFfAKa17ksPRKKy9taVEet7W5-2ZRhY`;
@@ -15,19 +24,46 @@ const sheetData = `${googleAPI}${googleGET}?key=${apiKey}`;
 const body = document.getElementsByTagName("body")[0];
 
 const resp = await fetch(sheetData, {mode:`cors`});
-
-// console.log(resp.url);
-console.log(resp.url);
 let respURL = resp.url;
 let respJSON = await resp.json();
 // getting values.
 console.log(respJSON.values);
 
+const buildTable = () => {
+    // element, values, appendto, id
+    elBuilder("thead", respJSON.values[0][4], table, "thead");
+    elBuilder("tr","", thead, "row1");
+    elBuilder("th", respJSON.values[0][0], row1, "head1");
+    elBuilder("th", respJSON.values[0][1], row1, "head2");
+    
+    // this definitely needs to be a loop.
+    elBuilder("tr","", thead, "row2");
+    elBuilder("td", respJSON.values[1][0], row2, "");
+    elBuilder("td", respJSON.values[1][1], row2, "");
+
+    elBuilder("tr","", thead, "row3");
+    elBuilder("td", respJSON.values[2][0], row3, "");
+    elBuilder("td", respJSON.values[2][1], row3, "");
+
+    elBuilder("tr","", thead, "row4");
+    elBuilder("td", respJSON.values[3][0], row4, "");
+    elBuilder("td", respJSON.values[3][1], row4, "");
 
 
-body.innerHTML = `<a href=${resp.url}>link</a>`;
-// console.log(respJSON);
+    // let thead = document.createElement("thead");
+    // thead.innerHTML = respJSON.values[0][4];
+    // table.appendChild(thead);
+    // let th = document.createElement("th");
+    // let th2 = document.createElement("th");
+    // th.innerHTML = respJSON.values[0][0];
+    // th2.innerHTML = respJSON.values[0][1];
+    // thead.appendChild(th);
+    // thead.appendChild(th2);
+}
+
+buildTable(respJSON);
 
 };
 
 checkSheet();
+
