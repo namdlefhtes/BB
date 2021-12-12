@@ -6,12 +6,23 @@
 const table = document.getElementById("teamDisplay");
 
 const elBuilder = (el, values, appendTo, id) => {
-    let newEl = document.createElement(el);
-    newEl.innerHTML = values;
-    newEl.id = id;
-    
-    console.log("obj detected " +appendTo );
-    appendTo.append(newEl);
+    if (typeof(appendTo)=== "string" ) {
+        appendTo = JSON.stringify(appendTo);
+        appendTo = JSON.parse(appendTo);
+        // console.log(appendTo);
+        let appendNode = document.getElementById(appendTo);
+
+        let newEl = document.createElement(el);
+        newEl.innerHTML = values;
+        newEl.id = id;
+        appendNode.appendChild(newEl)
+    }
+    else {
+        let newEl = document.createElement(el);
+        newEl.innerHTML = values;
+        newEl.id = id;
+        appendTo.appendChild(newEl);
+    }
     
 };
 
@@ -33,8 +44,11 @@ console.log(respJSON.values);
 const buildTable = () => {
     //builds table title and headings
     // element, values, appendto, id
+    // creates thead
     elBuilder("thead", respJSON.values[0][4], table, "thead");
+    // creates first table row
     elBuilder("tr","", thead, "row1");
+    // creates 2 table headings
     elBuilder("th", respJSON.values[0][0], row1, "head1");
     elBuilder("th", respJSON.values[0][1], row1, "head2");
     
@@ -44,46 +58,16 @@ const buildTable = () => {
         let i=2
         while ( i < respJSON.values.length) {
             console.log(i);
-            // el, txt, append to, rowNum. this part works.
             elBuilder("tr","", thead, `row${i}`);
 
             let j=0
             while (j < 2) { 
-                let row = "row"+i;     
-                try {
-                    let rowObj = JSON.parse(row);
-                    elBuilder("td", respJSON.values[i][j], rowObj,"");
-                    elBuilder("td", respJSON.values[i][j], rowObj,"");
-                    j++;
-
-                } catch (err) {
-                    console.log("parsing error");
-                    return undefined; 
-                }
-                // for some reason row2 != `row${rowNum}`
-              
-
+                let row = "row"+i; 
+                elBuilder("td", respJSON.values[i][j], row,"");
+                j++;
             };
             i++;
         };
-    // each player has a number [0] and name [1]
-        //loop2 within loop1 
-    // need to increment number starting with 2
-        // this can be an +1 version of loop1
-
-
-    // this definitely needs to be a loop.
-    // elBuilder("tr","", thead, "row2");
-    // elBuilder("td", respJSON.values[1][0], row2, "");
-    // elBuilder("td", respJSON.values[1][1], row2, "");
-
-    // elBuilder("tr","", thead, "row3");
-    // elBuilder("td", respJSON.values[2][0], row3, "");
-    // elBuilder("td", respJSON.values[2][1], row3, "");
-
-    // elBuilder("tr","", thead, "row4");
-    // elBuilder("td", respJSON.values[3][0], row4, "");
-    // elBuilder("td", respJSON.values[3][1], row4, "");
 };
 
 buildTable(respJSON);
@@ -91,4 +75,3 @@ buildTable(respJSON);
 };
 
 checkSheet();
-
