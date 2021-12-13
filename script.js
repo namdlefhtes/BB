@@ -5,6 +5,8 @@
 //https://console.cloud.google.com/home/dashboard?project=bill-bolton
 // const table = document.getElementById("teamDisplay");
 
+const container = document.getElementById("container");
+
 const elBuilder = (el, values, appendTo, id) => {
     if (typeof(appendTo)=== "string" ) {
         appendTo = JSON.stringify(appendTo);
@@ -42,15 +44,20 @@ const buildTable = (respJSON, team) => {
     console.log(respJSON.values);
 
     //builds table title and headings
-    elBuilder("table","", document.body, team)
+    elBuilder("table","", container, team)
+   
     // element, values, appendto, id
     // creates thead
-    elBuilder("thead", respJSON.values[0][2], team, `${team}-tHead`);
+    elBuilder("thead", "", team, `${team}-tHead`);
     // creates first table row
     elBuilder("tr","", `${team}-tHead`, `${team}-row1`);
     // creates 2 table headings
-    elBuilder("th", respJSON.values[0][0], `${team}-row1`, "");
-    elBuilder("th", respJSON.values[0][1], `${team}-row1`, "");
+    elBuilder("th", "",`${team}-row1`, "" );
+    elBuilder("th", respJSON.values[0][2],`${team}-row1`, "teamName" );
+    
+
+    // elBuilder("th", respJSON.values[0][0], `${team}-row1`, "");
+    // elBuilder("th", respJSON.values[0][1], `${team}-row1`, "");
     
     // //respJSON.values[1] and onwards is a player.
     //     //loop 1
@@ -73,13 +80,15 @@ buildTable(respJSON, team);
 // team = "";
 };
 // this runs early. loop to check all teams?
-const teamList = ["team1","team2","team3","team4"];
+const teamList = ["team1","team2","team3","team4", "team5", "team6"];
 // teams appear in random order based on when data retrieved.
 //need to wait chronologically.
 teamList.forEach(teamName => {
-    setTimeout(() => {
-        checkSheet(teamName);
-    }, 1000);
+    // setTimeout(() => {
+    //     checkSheet(teamName);
+    // }, 1000);
+    checkSheet(teamName);
+
 });
 // checkSheet(teamList[0]);
 // checkSheet(teamList[1]);
