@@ -62,14 +62,14 @@ const buildTable = (respJSON, team) => {
     // //respJSON.values[1] and onwards is a player.
     //     //loop 1
         // starts on row 2
-        let i=2
-        while ( i < respJSON.values.length) {
+        let i=2;
+        while ( i <= respJSON.values.length) {
             // console.log(i);
             elBuilder("tr","", `${team}-tHead`, `${team}-row${i}`);
             let j=0
             while (j < 2) { 
-                let row = "row"+i; 
-                elBuilder("td", respJSON.values[i][j], `${team}-row${i}`,"");
+                let p= i-1;
+                elBuilder("td", respJSON.values[p][j], `${team}-row${i}`,"");
                 j++;
             };
             i++;
@@ -77,6 +77,7 @@ const buildTable = (respJSON, team) => {
 };
 // loop for all teams
 buildTable(respJSON, team);
+return team;
 // team = "";
 };
 // this runs early. loop to check all teams?
@@ -84,14 +85,14 @@ const teamList = ["team1","team2","team3","team4", "team5", "team6"];
 // teams appear in random order based on when data retrieved.
 //need to wait chronologically.
 teamList.forEach(teamName => {
-    // setTimeout(() => {
-    //     checkSheet(teamName);
-    // }, 1000);
-    checkSheet(teamName);
-
+    checkSheet(teamName).then(result=> console.log(result));
+    // checkSheet(teamName);
 });
-// checkSheet(teamList[0]);
-// checkSheet(teamList[1]);
-// checkSheet(teamList[2]);
-// checkSheet(teamList[3]);
+
+
+
+
+// await Promise.all(teamList.map(async (i) =>  {
+//     await sleep(10 - i);
+// }));
 
