@@ -84,10 +84,24 @@ return team;
 const teamList = ["team1","team2","team3","team4", "team5", "team6"];
 // teams appear in random order based on when data retrieved.
 //need to wait chronologically.
-teamList.forEach(teamName => {
-    checkSheet(teamName).then(result=> console.log(result));
-    // checkSheet(teamName);
-});
+
+    const checkPromise = new Promise ((resolve, reject) =>{
+
+    teamList.forEach((teamList) => {
+    checkSheet(teamList)
+        .then((result) => {
+        console.log(`returned ${result}`);
+        resolve(result);
+        })
+        .catch(error => {
+            reject(error);
+        });
+    })    
+
+    });
+    // checkSheet(teamName);   
+
+
 
 
 
