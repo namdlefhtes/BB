@@ -6,6 +6,8 @@
 // const table = document.getElementById("teamDisplay");
 
 const container = document.getElementById("container");
+const teamArray = [];
+const teamList = ["team1","team2","team3","team4", "team5", "team6"];
 
 const elBuilder = (el, values, appendTo, id) => {
     if (typeof(appendTo)=== "string" ) {
@@ -34,15 +36,14 @@ const googleAPI = `https://sheets.googleapis.com`;
 const range = team;
 const googleGET = `/v4/spreadsheets/${sheetId}/values/${range}`;
 const apiKey= `AIzaSyBwr2UeuNOcdWJ8qB5HqHA6eE_i6iLTc74`;
-//https://developers.google.com/sheets/api/guides/concepts
 const sheetData = `${googleAPI}${googleGET}?key=${apiKey}`;
 const resp = await fetch(sheetData, {mode:`cors`});
 let respJSON = await resp.json();
 // getting values.
 
 const buildTable = (respJSON, team) => {
-    console.log(respJSON.values);
-
+    // console.log(respJSON.values);
+  
     //builds table title and headings
     elBuilder("table","", container, team)
    
@@ -55,12 +56,6 @@ const buildTable = (respJSON, team) => {
     elBuilder("th", "",`${team}-row1`, "" );
     elBuilder("th", respJSON.values[0][2],`${team}-row1`, "teamName" );
     
-
-    // elBuilder("th", respJSON.values[0][0], `${team}-row1`, "");
-    // elBuilder("th", respJSON.values[0][1], `${team}-row1`, "");
-    
-    // //respJSON.values[1] and onwards is a player.
-    //     //loop 1
         // starts on row 2
         let i=2;
         while ( i <= respJSON.values.length) {
@@ -75,17 +70,28 @@ const buildTable = (respJSON, team) => {
             i++;
         };
 };
-// loop for all teams
+
+// store respJSON in an array of objects, arrange, by order, then build table.
+  // store in array first
+  teamArray.push(respJSON.values);
+  // access part of array with team name
+//   console.log(teamArray[0][0][2]);
+// sort by team name in array of arrays.
+teamArray.sort();
+// this currently receives data asynchrounously
+
+teamArray.forEach(teamData =>
+    //either build table needs to change or data in array does to meet
+    //current requirements.  
+    buildTable(teamData, teamList[0])
+
+    );
+
 buildTable(respJSON, team);
-return team;
-// team = "";
+// return team;
 };
 // this runs early. loop to check all teams?
-const teamList = ["team1","team2","team3","team4", "team5", "team6"];
-// teams appear in random order based on when data retrieved.
-//need to wait chronologically.
-
-    const checkPromise = new Promise ((resolve, reject) =>{
+const checkPromise = new Promise ((resolve, reject) =>{
 
     teamList.forEach((teamList) => {
     checkSheet(teamList)
@@ -98,15 +104,4 @@ const teamList = ["team1","team2","team3","team4", "team5", "team6"];
         });
     })    
 
-    });
-    // checkSheet(teamName);   
-
-
-
-
-
-
-// await Promise.all(teamList.map(async (i) =>  {
-//     await sleep(10 - i);
-// }));
-
+});
