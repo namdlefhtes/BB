@@ -80,12 +80,12 @@ const buildTable = (respJSON, team) => {
 teamArray.sort();
 // this currently receives data asynchrounously
 
-teamArray.forEach(teamData =>
-    //either build table needs to change or data in array does to meet
-    //current requirements.  
-    buildTable(teamData, teamList[0])
+// teamArray.forEach(teamData =>
+//     //either build table needs to change or data in array does to meet
+//     //current requirements.  
+//     buildTable(teamData, teamList[0])
 
-    );
+//     );
 
 buildTable(respJSON, team);
 // return team;

@@ -29,3 +29,10 @@ thead {
     font-weight: bold;
     background-color:white;
 }
+
+#team1 {
+    order: 1;
+}
+#team2{
+    order:2;
+}
