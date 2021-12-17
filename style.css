@@ -29,27 +29,3 @@ thead {
     font-weight: bold;
     background-color:white;
 }
-
-#team1 {
- 
-    order: 1;
-}
-#team2{
-    order:2;
-}
-
-#team3{
-    order: 3;
-}
-
-#team4{
-    order: 4;
-}
-
-#team5{
-    order: 5;
-}
-
-#team6{
-    order: 6;
-}
