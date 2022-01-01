@@ -1,8 +1,9 @@
-#container {
+#bb-container {
     display: flex;
     box-sizing: border-box;
     flex-wrap: wrap;
     gap: 10px;
+    overflow: hidden;
 }
 
 table, th, td {

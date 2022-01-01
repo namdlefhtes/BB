@@ -1,4 +1,4 @@
-const container = document.getElementById("container");
+const container = document.getElementById("bb-container");
 const teamList = ["team1","team2","team3","team4", "team5", "team6"];
 
 const elBuilder = (el, values, appendTo, id) => {
