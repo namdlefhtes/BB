@@ -3,7 +3,7 @@ const teamList = [];
 
 // API  and sheet info
 
-let SHEETID = '';
+let sheetId = '';
 
 const apiKey= `AIzaSyBwr2UeuNOcdWJ8qB5HqHA6eE_i6iLTc74`;
 
@@ -38,7 +38,7 @@ async function getTeams(sheetId) {
 }
 
 // THIS IS WHERE THE SHEET ID IS PASSED IN.
-getTeams(SHEETID);
+getTeams(sheetId);
 
 async function checkSheet(sheetId, team) {
 
