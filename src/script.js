@@ -2,23 +2,24 @@ const container = document.getElementById("bb-container");
 const teamList = [];
 
 // API  and sheet info
-const SNWL = `1gZTTcNQTmpcHNuVrc-W2loeS76oV-yy0gCNR21lk8pQ`;
-const FNML = `1dJ0MP5z_5UG5bFfAKa17ksPRKKy9taVEet7W5-2ZRhY`;
+
+let SHEETID = '';
+
 const apiKey= `AIzaSyBwr2UeuNOcdWJ8qB5HqHA6eE_i6iLTc74`;
 
 // helper function to build elements.
 const elBuilder = (el, values, parent, id) => {
     const newEl = document.createElement(el);
-    values.length > 0 ? newEl.innerText = values : null
-    newEl.id = id;
 
-    if (typeof(parent) === "string" ) {
+    values.length > 0 ? 
+        newEl.innerText = values : null;
+    id !== "" ? 
+        newEl.id = id : newEl.remove();
+
+    typeof(parent) === "string" ? 
         document.getElementById(parent).appendChild(newEl)
-    }
-    else {
+        :
         parent.appendChild(newEl);
-    }
- 
 };
 
 // retrieve team names from sheet.
@@ -26,9 +27,8 @@ async function getTeams(sheetId) {
     const teamNames = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?key=${apiKey}`;
     const response = await fetch(teamNames, {mode:`cors`});
     const sheetResp = await response.json();
-    const teamsArr = sheetResp.sheets // simplify
 
-    teamsArr.forEach(team => {
+    sheetResp.sheets.forEach(team => {
         teamList.push(team.properties.title);
     })
 
@@ -36,10 +36,9 @@ async function getTeams(sheetId) {
         checkSheet(sheetId, team);
     })
 }
+
 // THIS IS WHERE THE SHEET ID IS PASSED IN.
-
-getTeams(FNML);
-
+getTeams(SHEETID);
 
 async function checkSheet(sheetId, team) {
 
@@ -85,6 +84,12 @@ const buildTable = (team) => {
             i++;
         };
     
+        // add class to all number tds
+        document.querySelectorAll('TR').forEach((tr) => {
+            if (tr.firstChild.tagName === "TD") {
+                tr.firstChild.classList.add("player-number");
+            }
+        }) 
 };
 
 buildTable(team);
