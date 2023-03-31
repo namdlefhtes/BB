@@ -13,3 +13,15 @@ This uses Google Sheets as a database. In order to do so, you will need to:
 `https://docs.google.com/spreadsheets/d/spreadsheetId/edit#gid=0`
 
 4. Set up Google Cloud and enable Sheets API for the account where the spreadsheets are saved.
+
+## CDN
+
+CSS:
+
+https://cdn.jsdelivr.net/gh/sethakirafeldman/BB/src/style.css
+
+JS:
+
+https://cdn.jsdelivr.net/gh/sethakirafeldman/BB@master/src/script.js
+
+
