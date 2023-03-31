@@ -3,7 +3,7 @@ const teamList = [];
 
 // API  and sheet info
 
-let sheetId = '';
+// let sheetId = '';
 
 const apiKey= `AIzaSyBwr2UeuNOcdWJ8qB5HqHA6eE_i6iLTc74`;
 
