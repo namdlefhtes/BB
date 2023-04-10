@@ -1,11 +1,7 @@
 const container = document.getElementById("bb-container");
 const teamList = [];
 
-// API  and sheet info
-
-// let sheetId = '';
-
-const apiKey= `AIzaSyBwr2UeuNOcdWJ8qB5HqHA6eE_i6iLTc74`;
+// sheetId and apiKey must be passed in as variables in <script></script> tag.
 
 // helper function to build elements.
 const elBuilder = (el, values, parent, id) => {
@@ -23,7 +19,7 @@ const elBuilder = (el, values, parent, id) => {
 };
 
 // retrieve team names from sheet.
-async function getTeams(sheetId) {
+async function getTeams(sheetId, apiKey) {
     const teamNames = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?key=${apiKey}`;
     const response = await fetch(teamNames, {mode:`cors`});
     const sheetResp = await response.json();
@@ -37,38 +33,37 @@ async function getTeams(sheetId) {
     })
 }
 
-// THIS IS WHERE THE SHEET ID IS PASSED IN.
-getTeams(sheetId);
+// THIS IS WHERE THE SHEETID and apiKey IS PASSED IN.
+getTeams(sheetId, apiKey);
 
 async function checkSheet(sheetId, team) {
 
-// https://docs.google.com/spreadsheets/d/1dJ0MP5z_5UG5bFfAKa17ksPRKKy9taVEet7W5-2ZRhY/edit#gid=557084764
+    const sheetData = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${team}?key=${apiKey}`;
+    const resp = await fetch(sheetData, {mode:`cors`});
+    const respJSON = await resp.json();
+    const values = respJSON.values;
 
-const sheetData = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${team}?key=${apiKey}`;
-const resp = await fetch(sheetData, {mode:`cors`});
-const respJSON = await resp.json();
-const values = respJSON.values;
+    // getting values.
 
-// getting values.
-
-const buildTable = (team) => {
-    //builds table title and headings
-    elBuilder("table", "", container, team);
-   
-    // creates thead
-    elBuilder("thead", "", team, `${team}-tHead`);
-
-    // creates first table row
-    elBuilder("tr", "", `${team}-tHead`, `${team}-row1`);
+    const buildTable = (team) => {
+        //builds table title and headings
+        elBuilder("table", "", container, team);
     
-    // 
-    elBuilder("th", "",`${team}-row1`, "", "");
-    // creates blank table heading
+        // creates thead
+        elBuilder("thead", "", team, `${team}-tHead`);
 
-    elBuilder("th", values[0][2],`${team}-row1`, `${team}-heading`);
-    // add order that sorts chronologically.    
-    const teamEl = document.getElementById(team);
-    teamEl.style.order = team.slice(-1);
+        // creates first table row
+        elBuilder("tr", "", `${team}-tHead`, `${team}-row1`);
+        
+        // 
+        elBuilder("th", "",`${team}-row1`, "", "");
+        // creates blank table heading
+
+        elBuilder("th", values[0][2],`${team}-row1`, `${team}-heading`);
+
+        // add order that sorts chronologically.    
+        const teamEl = document.getElementById(team);
+        teamEl.style.order = team.slice(-1);
 
         // starts on row 2
         let i = 2;
