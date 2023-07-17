@@ -1,4 +1,5 @@
-const container = document.getElementById("bb-container");
+// this is declared in embed initially.
+// const container = document.getElementById("bb-container");
 const teamList = [];
 
 // sheetId and apiKey must be passed in as variables in <script></script> tag.
@@ -43,25 +44,23 @@ async function checkSheet(sheetId, team) {
     const respJSON = await resp.json();
     const values = respJSON.values;
 
-    // getting values.
+    // creates unique ids for teams based on container name passed in at embed stage.
+    team = `${container.id}-${team}`;
 
+    // el, values, parent, id
     const buildTable = (team) => {
         //builds table title and headings
         elBuilder("table", "", container, team);
-    
         // creates thead
         elBuilder("thead", "", team, `${team}-tHead`);
-
         // creates first table row
         elBuilder("tr", "", `${team}-tHead`, `${team}-row1`);
-        
-        // 
+        //creates th
         elBuilder("th", "",`${team}-row1`, "", "");
         // creates blank table heading
-
         elBuilder("th", values[0][2],`${team}-row1`, `${team}-heading`);
 
-        // add order that sorts chronologically.    
+        // add order that sorts chronologically.
         const teamEl = document.getElementById(team);
         teamEl.style.order = team.slice(-1);
 

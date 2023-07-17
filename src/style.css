@@ -6,7 +6,7 @@ body {
     margin:0;
 }
 
-#bb-container {
+.bb-container {
     display: grid;
     grid-template-columns: auto auto auto;
     gap: 3px;
@@ -21,18 +21,18 @@ body {
 }
 
 
-#bb-container table {
+.bb-container table {
     border: 2px solid black;
     border-collapse: collapse;
     font-size: 2% ;
 }
 
-#bb-container th {
+.bb-container th {
     height: 2em;
     padding: 2px;
 }
 
-#bb-container td {
+.bb-container td {
     padding: 5px;
     width: fit-content;
     max-width: 100px;
@@ -40,13 +40,13 @@ body {
     border-bottom: 1px solid black;
 }
 
-#bb-container th {
+.bb-container th {
    color: var(--bb-yellow);
    background-color: var(--bb-blue); 
    border-radius: 2%;
 }
 
-#bb-container thead {
+.bb-container thead {
     font-size: large;
     font-weight: bold;
     background-color:white;
