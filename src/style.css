@@ -8,35 +8,26 @@ body {
 
 .bb-container {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 3px;
-    width: 100%;
+    /* width: 100%; */
     padding: 2px;
 }
 
 @media only screen and (max-width: 500px) {
-    #bb-container {
+    .bb-container {
         grid-template-columns: auto auto;
     }
 }
 
-
 .bb-container table {
     border: 2px solid black;
     border-collapse: collapse;
-    font-size: 2% ;
-}
-
-.bb-container th {
-    height: 2em;
-    padding: 2px;
+    font-size: 2%;
 }
 
 .bb-container td {
     padding: 5px;
-    width: fit-content;
-    max-width: 100px;
-    text-align:left;
     border-bottom: 1px solid black;
 }
 
@@ -44,6 +35,8 @@ body {
    color: var(--bb-yellow);
    background-color: var(--bb-blue); 
    border-radius: 2%;
+   height: 2em;
+   padding: 2px;
 }
 
 .bb-container thead {
@@ -53,8 +46,13 @@ body {
 }
 
 .player-number {
-    text-align: center;
     color: var(--bb-blue);
     font-weight: bold;
+    text-align: center;
     border-right: 1px solid black;
+    width: 15px !important;
+}
+
+td.player-name {
+    min-width: 30px !important;
 }

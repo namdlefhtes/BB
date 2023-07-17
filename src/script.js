@@ -1,5 +1,9 @@
-// this is declared in embed initially.
-// const container = document.getElementById("bb-container");
+const container = document.createElement("div");
+// containerId is passed in on script embed
+container.id = containerID;
+container.classList.add('bb-container');
+document.body.appendChild(container);
+
 const teamList = [];
 
 // sheetId and apiKey must be passed in as variables in <script></script> tag.
@@ -77,13 +81,12 @@ async function checkSheet(sheetId, team) {
             };
             i++;
         };
-    
-        // add class to all number tds
+
+        // add class to tds
         document.querySelectorAll('TR').forEach((tr) => {
-            if (tr.firstChild.tagName === "TD") {
-                tr.firstChild.classList.add("player-number");
-            }
-        }) 
+            tr.children[0].classList.add("player-number");
+            tr.children[1].classList.add("player-name");
+        })
 };
 
 buildTable(team);
