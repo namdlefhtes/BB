@@ -1,8 +1,8 @@
-const container = document.createElement("div");
-// containerId is passed in on script embed
-container.id = containerID;
-container.classList.add('bb-container');
-document.body.appendChild(container);
+// const container = document.createElement("div");
+// // containerId is passed in on script embed
+// container.id = containerID;
+// container.classList.add('bb-container');
+// document.body.appendChild(container);
 
 const teamList = [];
 
